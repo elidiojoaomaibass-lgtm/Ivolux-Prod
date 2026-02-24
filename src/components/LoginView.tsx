@@ -14,6 +14,7 @@ const stats = [
 
 export const LoginView = ({ onLogin }: LoginViewProps) => {
     const [isSignUp, setIsSignUp] = useState(false);
+    const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +32,9 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                     email,
                     password,
                     options: {
+                        data: {
+                            full_name: fullName,
+                        },
                         emailRedirectTo: window.location.origin,
                     },
                 });
@@ -150,6 +154,20 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        {isSignUp && (
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nome Completo</label>
+                                <input
+                                    type="text"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    placeholder="João Pedro"
+                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none focus:border-violet-500 focus:bg-white/8 focus:ring-2 focus:ring-violet-500/20 transition-all duration-200"
+                                    required
+                                />
+                            </div>
+                        )}
+
                         <div className="space-y-1.5">
                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email</label>
                             <input

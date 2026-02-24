@@ -8,8 +8,8 @@ import {
     ArrowUpRight, ArrowDownRight, Smartphone, ChevronRight, LogOut
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '../lib/utils';
 import { useState, useRef, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
 import type { User } from '@supabase/supabase-js';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -82,20 +82,14 @@ const getHour = () => {
 interface DashboardProps {
     onLogout?: () => void;
     setView: (view: any) => void;
+    user: User;
 }
 
-export const Dashboard = ({ onLogout, setView }: DashboardProps) => {
-    const [user, setUser] = useState<User | null>(null);
+export const Dashboard = ({ onLogout, setView, user }: DashboardProps) => {
     const [period, setPeriod] = useState<Period>('hoje');
     const [profileOpen, setProfileOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
     const data = salesData[period];
-
-    useEffect(() => {
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            setUser(user);
-        });
-    }, []);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -175,7 +169,7 @@ export const Dashboard = ({ onLogout, setView }: DashboardProps) => {
                                     </div>
                                     <div className="min-w-0">
                                         <p className="text-sm font-black text-slate-800 dark:text-white truncate">
-                                            {user?.email?.split('@')[0] || 'Utilizador'}
+                                            {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Utilizador'}
                                         </p>
                                         <p className="text-[11px] font-bold text-slate-400 dark:text-brand-400 truncate">
                                             {user?.email || 'carregando...'}
@@ -219,7 +213,7 @@ export const Dashboard = ({ onLogout, setView }: DashboardProps) => {
                     <div>
                         <h2 className="text-3xl font-black text-violet-950 dark:text-white tracking-tight">
                             {getHour()}, <span className="text-violet-600 dark:text-brand-300">
-                                {user?.email?.split('@')[0] || 'João'}!
+                                {user?.user_metadata?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'João'}!
                             </span> 👋
                         </h2>
                         <p className="text-sm text-slate-400 dark:text-brand-400 font-medium mt-1">Acompanhe as suas vendas e receitas de hoje.</p>
@@ -460,4 +454,3 @@ export const Dashboard = ({ onLogout, setView }: DashboardProps) => {
         </div>
     );
 };
-

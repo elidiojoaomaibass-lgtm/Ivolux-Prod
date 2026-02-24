@@ -40,7 +40,12 @@ function App() {
 
   // Show login screen if not authenticated
   if (!session) {
-    return <LoginView onLogin={() => { }} />;
+    return <LoginView onLogin={() => {
+      // Re-fetch session after login to update state immediately
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session);
+      });
+    }} />;
   }
 
   const handleLogout = async () => {
@@ -59,7 +64,13 @@ function App() {
       {/* Main Content Area */}
       <div className="flex-1 ml-64 min-w-0 min-h-screen">
         <div key={activeView}>
-          {activeView === "Dashboard" && <Dashboard onLogout={handleLogout} setView={setActiveView} />}
+          {activeView === "Dashboard" && (
+            <Dashboard
+              onLogout={handleLogout}
+              setView={setActiveView}
+              user={session.user}
+            />
+          )}
           {activeView === "Vendas" && <Views.Vendas />}
           {activeView === "Produtos" && <Views.Produtos />}
           {activeView === "Afiliados" && <Views.Afiliados />}
