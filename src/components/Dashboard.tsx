@@ -373,8 +373,8 @@ export const Dashboard = ({ onLogout, setView, user, toggleSidebar }: DashboardP
                                             <Trophy size={18} />
                                         </div>
                                         <div className="min-w-0">
-                                            <p className="text-[10px] font-black text-violet-600 dark:text-brand-300 uppercase truncate">Meta Mensal</p>
-                                            <p className="text-sm font-black text-slate-900 dark:text-white truncate">82% concluído</p>
+                                            <p className="text-[10px] font-black text-violet-600 dark:text-brand-300 uppercase truncate">Sistema</p>
+                                            <p className="text-sm font-black text-slate-900 dark:text-white truncate">Premium Ativado</p>
                                         </div>
                                     </div>
                                     <ArrowRight className="text-violet-400 shrink-0" size={18} />

@@ -104,7 +104,7 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                         <h1 className="text-2xl md:text-4xl font-black text-white leading-tight mb-2 md:mb-3">
                             {isSignUp ? "Criar minha" : "Entrar na"}<br />
                             <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-                                {isSignUp ? "conta gratuita" : "minha conta"}
+                                {isSignUp ? "conta" : "minha conta"}
                             </span>
                         </h1>
                         <p className="text-xs md:text-sm text-slate-400 font-medium tracking-tight">
