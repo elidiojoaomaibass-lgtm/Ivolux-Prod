@@ -65,7 +65,7 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
         <div className="min-h-screen w-full flex font-sans">
 
             {/* ── LEFT PANEL: Form ── */}
-            <div className="relative flex flex-col justify-center items-center w-full lg:w-[46%] bg-[#0d0d17] px-8 py-12 overflow-hidden">
+            <div className="relative flex flex-col justify-center items-center w-full lg:w-[46%] bg-[#0d0d17] px-6 md:px-12 py-10 md:py-16 overflow-hidden">
 
                 {/* Ambient glow blobs */}
                 <div className="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-violet-600/20 blur-[100px]" />
@@ -74,8 +74,8 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                 <div className="relative z-10 w-full max-w-sm">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-3 mb-10">
-                        <div className="h-10 w-10 rounded-xl overflow-hidden shadow-lg shadow-violet-500/30">
+                    <div className="flex items-center gap-3 mb-8 md:mb-12">
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl overflow-hidden shadow-lg shadow-violet-500/30">
                             <img
                                 src="/logo.png"
                                 alt="Evolux"
@@ -87,7 +87,7 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                             />
                         </div>
                         <div>
-                            <p className="text-white font-black text-lg leading-none tracking-tight">
+                            <p className="text-white font-black text-lg md:text-xl leading-none tracking-tight">
                                 Evolux <span className="text-violet-400">Prod</span>
                             </p>
                             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Moçambique</p>
@@ -96,13 +96,13 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
 
                     {/* Heading */}
                     <div className="mb-8">
-                        <h1 className="text-3xl font-black text-white leading-tight mb-2">
+                        <h1 className="text-2xl md:text-4xl font-black text-white leading-tight mb-2 md:mb-3">
                             {isSignUp ? "Criar minha" : "Entrar na"}<br />
                             <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
                                 {isSignUp ? "conta gratuita" : "minha conta"}
                             </span>
                         </h1>
-                        <p className="text-sm text-slate-400 font-medium">
+                        <p className="text-xs md:text-sm text-slate-400 font-medium tracking-tight">
                             {isSignUp ? "Já tem uma conta?" : "Não tem uma conta?"}{" "}
                             <button
                                 onClick={() => {

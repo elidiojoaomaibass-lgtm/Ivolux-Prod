@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { cn } from "./lib/utils";
 import { Sidebar } from "./components/Sidebar";
 import type { ViewType } from "./components/Sidebar";
 import { Dashboard } from "./components/Dashboard";
@@ -13,6 +14,13 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return document.documentElement.classList.contains('dark');
   });
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    // Close sidebar on view change on mobile
+    setSidebarOpen(false);
+  }, [activeView]);
 
   useEffect(() => {
     // Check current session
@@ -53,22 +61,29 @@ function App() {
   };
 
   return (
-    <div className="flex bg-slate-50 dark:bg-brand-950 min-h-screen font-sans transition-colors duration-300">
+    <div className="flex bg-slate-50 dark:bg-brand-950 min-h-screen font-sans transition-colors duration-300 overflow-x-hidden">
       <Sidebar
         activeView={activeView}
         setView={setActiveView}
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 ml-64 min-w-0 min-h-screen">
+      <div className={cn(
+        "flex-1 min-w-0 min-h-screen transition-all duration-300",
+        "lg:ml-64", // Fixed margin on desktop
+        sidebarOpen ? "ml-64 opacity-50 pointer-events-none lg:opacity-100 lg:pointer-events-auto" : "ml-0"
+      )}>
         <div key={activeView}>
           {activeView === "Dashboard" && (
             <Dashboard
               onLogout={handleLogout}
               setView={setActiveView}
               user={session.user}
+              toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
             />
           )}
           {activeView === "Vendas" && <Views.Vendas />}

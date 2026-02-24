@@ -106,41 +106,41 @@ const achievements = [
 
 export const PremiacoesView = () => {
     return (
-        <div className="px-8 py-7 pb-28 space-y-12">
+        <div className="px-4 md:px-8 py-6 md:py-7 pb-28 space-y-8 md:space-y-12">
             {/* Header */}
             <div>
-                <h2 className="text-3xl font-black text-violet-950 dark:text-white tracking-tight leading-none mb-2">Premiações</h2>
-                <p className="text-sm text-slate-400 dark:text-brand-400 font-medium">Conquiste marcos e desbloqueie prêmios exclusivos pela Evolux.</p>
+                <h2 className="text-2xl md:text-3xl font-black text-violet-950 dark:text-white tracking-tight leading-none mb-2">Premiações</h2>
+                <p className="text-xs md:text-sm text-slate-400 dark:text-brand-400 font-medium">Conquiste marcos e desbloqueie prêmios exclusivos pela Evolux.</p>
             </div>
 
             {/* Current Level Card */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="group relative overflow-hidden rounded-[3rem] border border-violet-100 dark:border-brand-800 bg-white dark:bg-brand-900 p-10 shadow-sm transition-all hover:shadow-xl"
+                className="group relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-violet-100 dark:border-brand-800 bg-white dark:bg-brand-900 p-6 md:p-10 shadow-sm transition-all hover:shadow-xl"
             >
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-10">
-                    <div className="flex-shrink-0">
-                        <div className="h-24 w-24 rounded-3xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-500 shadow-inner group-hover:scale-110 transition-transform duration-500">
-                            <Trophy size={48} />
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+                    <div className="flex-shrink-0 flex justify-center md:block">
+                        <div className="h-20 w-20 md:h-24 md:w-24 rounded-3xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-500 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <Trophy size={40} className="md:w-12 md:h-12" />
                         </div>
                     </div>
-                    <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">Nível Atual: Bronze</h3>
-                            <span className="rounded-full bg-violet-100 dark:bg-brand-800 px-3 py-1 text-[10px] font-black text-violet-600 dark:text-brand-300 uppercase tracking-widest">Iniciante</span>
+                    <div className="flex-1 text-center md:text-left">
+                        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3 mb-2">
+                            <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight">Nível Atual: Bronze</h3>
+                            <span className="rounded-full bg-violet-100 dark:bg-brand-800 px-3 py-1 text-[9px] md:text-[10px] font-black text-violet-600 dark:text-brand-300 uppercase tracking-widest">Iniciante</span>
                         </div>
-                        <p className="text-sm font-bold text-slate-400 dark:text-brand-400 flex items-center gap-2">
-                            <TrendingUp size={16} className="text-green-500" />
-                            Receita total: <span className="text-slate-900 dark:text-white">0 MZN (0 vendas)</span>
+                        <p className="text-xs md:text-sm font-bold text-slate-400 dark:text-brand-400 flex items-center justify-center md:justify-start gap-2">
+                            <TrendingUp size={14} className="text-green-500 md:w-4 md:h-4" />
+                            Receita total: <span className="text-slate-900 dark:text-white">0 MZN</span>
                         </p>
 
-                        <div className="mt-8 space-y-3">
-                            <div className="flex items-center justify-between text-[11px] font-black tracking-wider uppercase">
+                        <div className="mt-6 md:mt-8 space-y-2 md:space-y-3">
+                            <div className="flex items-center justify-between text-[10px] md:text-[11px] font-black tracking-wider uppercase">
                                 <span className="text-violet-600 dark:text-brand-300">Meta: Prata</span>
                                 <span className="text-slate-400">Faltam 10 000 MZN</span>
                             </div>
-                            <div className="h-4 w-full rounded-full bg-slate-50 dark:bg-brand-950 overflow-hidden border border-slate-100 dark:border-brand-800 p-1 shadow-inner">
+                            <div className="h-3 md:h-4 w-full rounded-full bg-slate-50 dark:bg-brand-950 overflow-hidden border border-slate-100 dark:border-brand-800 p-0.5 md:p-1 shadow-inner">
                                 <motion.div
                                     initial={{ width: 0 }}
                                     animate={{ width: '0%' }}
@@ -150,12 +150,12 @@ export const PremiacoesView = () => {
                         </div>
                     </div>
 
-                    <div className="md:w-64 pt-6 md:pt-0 md:pl-10 md:border-l border-slate-50 dark:border-brand-800">
-                        <p className="text-[10px] font-black text-slate-300 dark:text-brand-500 uppercase tracking-[0.2em] mb-4">Seus benefícios atuais:</p>
-                        <div className="space-y-2">
+                    <div className="md:w-64 pt-6 md:pt-0 md:pl-10 md:border-l border-slate-50 dark:border-brand-800 border-t md:border-t-0 border-slate-100 dark:border-brand-800">
+                        <p className="text-[9px] md:text-[10px] font-black text-slate-300 dark:text-brand-500 uppercase tracking-[0.2em] mb-3 md:mb-4 text-center md:text-left">Benefícios atuais:</p>
+                        <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
                             {['Suporte prioritário', 'Badge exclusivo'].map(b => (
-                                <div key={b} className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-brand-200">
-                                    <CheckCircle2 size={16} className="text-orange-500" /> {b}
+                                <div key={b} className="flex items-center justify-center md:justify-start gap-2 text-[11px] md:text-xs font-bold text-slate-600 dark:text-brand-200">
+                                    <CheckCircle2 size={14} className="text-orange-500 md:w-4 md:h-4" /> {b}
                                 </div>
                             ))}
                         </div>
@@ -167,13 +167,13 @@ export const PremiacoesView = () => {
             </motion.div>
 
             {/* Main Rewards Grid */}
-            <section className="space-y-8">
+            <section className="space-y-6 md:space-y-8">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Kits de Premiação</h3>
-                    <div className="h-1 flex-1 mx-6 bg-slate-50 dark:bg-brand-800/30 rounded-full" />
+                    <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight">Kits de Premiação</h3>
+                    <div className="hidden sm:block h-1 flex-1 mx-6 bg-slate-50 dark:bg-brand-800/30 rounded-full" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
                     {rewards.map((r, i) => (
                         <motion.div
                             key={r.target}
@@ -184,39 +184,39 @@ export const PremiacoesView = () => {
                         >
                             <div className="relative">
                                 {/* The Award Visual Container */}
-                                <div className="relative h-72 w-full rounded-[2.5rem] bg-slate-950 border border-violet-900/30 shadow-xl overflow-hidden flex items-center justify-center hover:shadow-violet-500/20 hover:-translate-y-1 transition-all duration-500">
+                                <div className="relative h-60 md:h-72 w-full rounded-[2rem] md:rounded-[2.5rem] bg-slate-950 border border-violet-900/30 shadow-xl overflow-hidden flex items-center justify-center hover:shadow-violet-500/20 hover:-translate-y-1 transition-all duration-500">
 
                                     <img
                                         src={r.image}
                                         alt={r.title}
-                                        className="h-full w-full object-cover"
+                                        className="h-full w-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
                                         onError={(e) => {
                                             (e.target as HTMLImageElement).src = 'https://via.placeholder.com/600x400/1e1b4b/ffffff?text=' + r.target;
                                         }}
                                     />
 
                                     {/* Lock badge */}
-                                    <div className="absolute top-4 right-4 h-9 w-9 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center shadow-lg border border-white/10">
-                                        <Lock size={16} className="text-slate-300" />
+                                    <div className="absolute top-4 right-4 h-8 w-8 md:h-9 md:w-9 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center shadow-lg border border-white/10">
+                                        <Lock size={14} className="text-slate-300 md:w-4 md:h-4" />
                                     </div>
 
                                     {/* Target badge */}
                                     <div className="absolute bottom-4 left-4 rounded-full bg-black/60 backdrop-blur-sm px-3 py-1.5 border border-white/10">
-                                        <span className="text-[10px] font-black text-violet-300 uppercase tracking-widest">{r.target} {r.label}</span>
+                                        <span className="text-[9px] md:text-[10px] font-black text-violet-300 uppercase tracking-widest">{r.target} {r.label}</span>
                                     </div>
                                 </div>
 
                                 {/* Info below visual */}
-                                <div className="px-2 mt-4 flex items-center justify-between">
-                                    <div>
-                                        <h4 className="text-base font-black text-slate-900 dark:text-white leading-tight">{r.title}</h4>
-                                        <p className="text-[11px] font-bold text-slate-400 dark:text-brand-500 uppercase tracking-[0.12em] mt-1 flex items-center gap-1.5">
-                                            <Lock size={10} className="text-slate-300" />
-                                            Bloqueado • Faltam {r.remain}
+                                <div className="px-1 md:px-2 mt-4 flex items-center justify-between">
+                                    <div className="min-w-0">
+                                        <h4 className="text-sm md:text-base font-black text-slate-900 dark:text-white leading-tight truncate">{r.title}</h4>
+                                        <p className="text-[10px] md:text-[11px] font-bold text-slate-400 dark:text-brand-500 uppercase tracking-[0.12em] mt-1 flex items-center gap-1.5 opacity-80">
+                                            <Lock size={10} className="shrink-0" />
+                                            Faltam {r.remain}
                                         </p>
                                     </div>
-                                    <div className="h-9 w-9 rounded-xl bg-violet-100 dark:bg-brand-800 flex items-center justify-center">
-                                        <Trophy size={18} className="text-violet-500" />
+                                    <div className="h-8 w-8 md:h-9 md:w-9 rounded-xl bg-violet-100 dark:bg-brand-800 flex items-center justify-center shrink-0">
+                                        <Trophy size={16} className="text-violet-500 md:w-[18px] md:h-[18px]" />
                                     </div>
                                 </div>
                             </div>
@@ -226,44 +226,44 @@ export const PremiacoesView = () => {
             </section>
 
             {/* Achievement Levels List */}
-            <section className="space-y-8">
+            <section className="space-y-6 md:space-y-8">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Escada do Sucesso</h3>
-                    <div className="h-1 flex-1 mx-6 bg-slate-50 dark:bg-brand-800/30 rounded-full" />
+                    <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight">Escada do Sucesso</h3>
+                    <div className="hidden sm:block h-1 flex-1 mx-6 bg-slate-50 dark:bg-brand-800/30 rounded-full" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
                     {levels.map((lvl) => (
                         <div
                             key={lvl.name}
                             className={cn(
-                                "relative flex flex-col items-center p-8 rounded-[2.5rem] border transition-all duration-300",
+                                "relative flex flex-col items-center p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] border transition-all duration-300",
                                 lvl.isCurrent
                                     ? "bg-white dark:bg-brand-900 border-violet-500 shadow-xl ring-2 ring-violet-500/20"
                                     : "bg-white/50 dark:bg-brand-900/40 border-slate-100 dark:border-brand-800 hover:border-violet-200 dark:hover:border-brand-700"
                             )}
                         >
                             {lvl.isCurrent && (
-                                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-4 py-1.5 text-[10px] font-black text-white uppercase tracking-[0.2em] shadow-lg">
+                                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-1 md:px-4 md:py-1.5 text-[8px] md:text-[10px] font-black text-white uppercase tracking-[0.2em] shadow-lg whitespace-nowrap">
                                     VOCÊ ESTÁ AQUI
                                 </span>
                             )}
                             <div className={cn(
-                                "h-16 w-16 rounded-3xl mb-6 flex items-center justify-center text-3xl shadow-lg border-2 border-white dark:border-brand-800",
+                                "h-12 w-12 md:h-16 md:w-16 rounded-2xl md:rounded-3xl mb-4 md:mb-6 flex items-center justify-center text-2xl md:text-3xl shadow-lg border-2 border-white dark:border-brand-800",
                                 lvl.bgColor, lvl.darkBg, lvl.color
                             )}>
-                                <lvl.icon size={32} />
+                                <lvl.icon size={24} className="md:w-8 md:h-8" />
                             </div>
-                            <h4 className="text-lg font-black text-slate-900 dark:text-white mb-1">{lvl.name}</h4>
-                            <p className="text-[11px] font-black text-violet-500 uppercase tracking-tighter mb-6">{lvl.range}</p>
+                            <h4 className="text-base md:text-lg font-black text-slate-900 dark:text-white mb-1">{lvl.name}</h4>
+                            <p className="text-[9px] md:text-[11px] font-black text-violet-500 uppercase tracking-tighter mb-4 md:mb-6">{lvl.range}</p>
 
-                            <div className="w-full space-y-3">
+                            <div className="w-full space-y-2 md:space-y-3">
                                 {lvl.benefits.map((b, i) => (
                                     <div key={i} className="flex items-start gap-2">
-                                        <div className="h-4 w-4 rounded-full bg-violet-50 dark:bg-brand-800 flex items-center justify-center shrink-0 mt-0.5">
-                                            <Star size={10} className="text-violet-500 fill-violet-500" />
+                                        <div className="h-3.5 w-3.5 md:h-4 md:w-4 rounded-full bg-violet-50 dark:bg-brand-800 flex items-center justify-center shrink-0 mt-0.5">
+                                            <Star size={8} className="text-violet-500 fill-violet-500 md:w-2.5 md:h-2.5" />
                                         </div>
-                                        <span className="text-xs font-bold text-slate-500 dark:text-brand-300 leading-tight">{b}</span>
+                                        <span className="text-[10px] md:text-xs font-bold text-slate-500 dark:text-brand-300 leading-tight">{b}</span>
                                     </div>
                                 ))}
                             </div>
@@ -273,30 +273,30 @@ export const PremiacoesView = () => {
             </section>
 
             {/* Bottom Badges */}
-            <section className="bg-slate-50 dark:bg-brand-950/50 rounded-[3rem] p-10 border border-slate-100 dark:border-brand-800/50 mt-12">
-                <div className="flex items-center gap-4 mb-8">
-                    <div className="h-10 w-10 rounded-xl bg-violet-600 flex items-center justify-center text-white shadow-lg">
+            <section className="bg-slate-50 dark:bg-brand-950/50 rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 border border-slate-100 dark:border-brand-800/50 mt-8 md:mt-12">
+                <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+                    <div className="h-10 w-10 rounded-xl bg-violet-600 flex items-center justify-center text-white shadow-lg shrink-0">
                         <Award size={24} />
                     </div>
                     <div>
-                        <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">Conquistas de Performance</h3>
-                        <p className="text-xs font-bold text-slate-400">Marcos extras para acelerar seu crescimento</p>
+                        <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white leading-tight">Performance</h3>
+                        <p className="text-[10px] md:text-xs font-bold text-slate-400">Marcos extras para acelerar seu crescimento</p>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {achievements.map((ach) => (
-                        <div key={ach.title} className="group relative flex items-center gap-5 rounded-2xl bg-white dark:bg-brand-900 p-6 border border-slate-100 dark:border-brand-800 shadow-sm hover:shadow-md transition-all overflow-hidden">
-                            <div className="relative z-10 h-14 w-14 rounded-2xl bg-slate-50 dark:bg-brand-800 flex items-center justify-center text-slate-400 dark:text-brand-500 group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-[15deg] transition-all duration-500">
-                                <ach.icon size={28} />
+                        <div key={ach.title} className="group relative flex items-center gap-4 md:gap-5 rounded-2xl bg-white dark:bg-brand-900 p-4 md:p-6 border border-slate-100 dark:border-brand-800 shadow-sm hover:shadow-md transition-all overflow-hidden">
+                            <div className="relative z-10 h-12 w-12 md:h-14 md:w-14 rounded-2xl bg-slate-50 dark:bg-brand-800 flex items-center justify-center text-slate-400 dark:text-brand-500 group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-[15deg] transition-all duration-500 shrink-0">
+                                <ach.icon size={24} className="md:w-7 md:h-7" />
                             </div>
-                            <div className="relative z-10">
-                                <h4 className="text-sm font-black text-slate-800 dark:text-white leading-tight mb-1">{ach.title}</h4>
-                                <p className="text-[11px] font-medium text-slate-400 dark:text-brand-500 leading-relaxed">{ach.desc}</p>
+                            <div className="relative z-10 min-w-0">
+                                <h4 className="text-xs md:text-sm font-black text-slate-800 dark:text-white leading-tight mb-1 truncate">{ach.title}</h4>
+                                <p className="text-[10px] md:text-[11px] font-medium text-slate-400 dark:text-brand-500 leading-relaxed line-clamp-2">{ach.desc}</p>
                             </div>
                             {/* Locked Pattern */}
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <Lock size={40} />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity">
+                                <Lock size={32} className="md:w-10 md:h-10" />
                             </div>
                         </div>
                     ))}
