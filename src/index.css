@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #faf9ff;
+  --surface: #ffffff;
+  --brand: #8b5cf6;
+  --text-primary: #1e1b4b;
+  --text-secondary: #64748b;
+  --border: #f5f3ff;
+}
+
+.dark {
+  --bg: #2e1065;
+  --surface: #4c1d95;
+  --brand: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #c4b5fd;
+  --border: #5b21b6;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  @apply antialiased overflow-x-hidden transition-colors duration-300;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f3ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6;
+}
