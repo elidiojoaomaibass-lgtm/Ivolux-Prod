@@ -8,8 +8,9 @@ import {
     ArrowUpRight, ArrowDownRight, Smartphone, ChevronRight, LogOut
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../lib/utils';
 import { useState, useRef, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import type { User } from '@supabase/supabase-js';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -78,13 +79,23 @@ const getHour = () => {
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-interface DashboardProps { onLogout?: () => void; }
+interface DashboardProps {
+    onLogout?: () => void;
+    setView: (view: any) => void;
+}
 
-export const Dashboard = ({ onLogout }: DashboardProps) => {
+export const Dashboard = ({ onLogout, setView }: DashboardProps) => {
+    const [user, setUser] = useState<User | null>(null);
     const [period, setPeriod] = useState<Period>('hoje');
     const [profileOpen, setProfileOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
     const data = salesData[period];
+
+    useEffect(() => {
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            setUser(user);
+        });
+    }, []);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -163,13 +174,20 @@ export const Dashboard = ({ onLogout }: DashboardProps) => {
                                         />
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="text-sm font-black text-slate-800 dark:text-white truncate">João Pedro</p>
-                                        <p className="text-[11px] font-bold text-slate-400 dark:text-brand-400 truncate">joao@evoluxprod.com</p>
+                                        <p className="text-sm font-black text-slate-800 dark:text-white truncate">
+                                            {user?.email?.split('@')[0] || 'Utilizador'}
+                                        </p>
+                                        <p className="text-[11px] font-bold text-slate-400 dark:text-brand-400 truncate">
+                                            {user?.email || 'carregando...'}
+                                        </p>
                                     </div>
                                 </div>
                                 {/* Edit Profile */}
                                 <button
-                                    onClick={() => setProfileOpen(false)}
+                                    onClick={() => {
+                                        setProfileOpen(false);
+                                        setView("Configurações");
+                                    }}
                                     className="flex w-full items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 dark:text-brand-200 hover:bg-violet-50 dark:hover:bg-brand-800 transition-colors border-b border-violet-50 dark:border-brand-800"
                                 >
                                     <div className="h-7 w-7 rounded-lg bg-violet-50 dark:bg-brand-800 flex items-center justify-center">
@@ -200,7 +218,9 @@ export const Dashboard = ({ onLogout }: DashboardProps) => {
                 <div className="flex items-start justify-between flex-wrap gap-4">
                     <div>
                         <h2 className="text-3xl font-black text-violet-950 dark:text-white tracking-tight">
-                            {getHour()}, <span className="text-violet-600 dark:text-brand-300">João!</span> 👋
+                            {getHour()}, <span className="text-violet-600 dark:text-brand-300">
+                                {user?.email?.split('@')[0] || 'João'}!
+                            </span> 👋
                         </h2>
                         <p className="text-sm text-slate-400 dark:text-brand-400 font-medium mt-1">Acompanhe as suas vendas e receitas de hoje.</p>
                     </div>

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import {
     ShoppingBag, Receipt, Users, BarChart2,
-    Megaphone, Settings, Plus, Layers
+    Megaphone, Plus, Layers
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -48,8 +48,8 @@ const PlaceholderView = ({ title, description, icon: Icon, accentColor = '#8b5cf
 );
 
 import { PremiacoesView } from './PremiacoesView';
-
 import { PagamentosView } from './PagamentosView';
+import { ConfiguracoesView } from './ConfiguracoesView';
 
 export const Views = {
     Vendas: () => <PlaceholderView title="Vendas" description="Gira todas as suas vendas, emita facturas e acompanhe o estado de cada transacção." icon={Receipt} accentColor="#8b5cf6" />,
@@ -60,5 +60,5 @@ export const Views = {
     Premiações: () => <PremiacoesView />,
     Marketing: () => <PlaceholderView title="Marketing" description="Crie campanhas, e-mails e funnels de venda para aumentar a sua conversão." icon={Megaphone} accentColor="#8b5cf6" />,
     Analytics: () => <PlaceholderView title="Analytics" description="Dados avançados sobre o comportamento dos seus clientes, conversão e ROI." icon={BarChart2} accentColor="#4f46e5" />,
-    Configuracoes: () => <PlaceholderView title="Configurações" description="Personalize a sua conta, domínio, integrações de pagamentos e preferências gerais." icon={Settings} accentColor="#64748b" />,
+    Configuracoes: () => <ConfiguracoesView />,
 };

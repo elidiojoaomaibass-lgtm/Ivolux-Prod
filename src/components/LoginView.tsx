@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Eye, EyeOff, ArrowRight, Zap, TrendingUp, Users, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Zap, TrendingUp, Users, ShieldCheck, AlertCircle } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 interface LoginViewProps {
     onLogin: () => void;
@@ -12,18 +13,48 @@ const stats = [
 ];
 
 export const LoginView = ({ onLogin }: LoginViewProps) => {
+    const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
+        setError(null);
+
+        try {
+            if (isSignUp) {
+                const { error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        emailRedirectTo: window.location.origin,
+                    },
+                });
+
+                if (signUpError) throw signUpError;
+
+                // Supabase by default requires email confirmation
+                alert("Conta criada com sucesso! Verifique seu email para confirmar o cadastro.");
+                setIsSignUp(false);
+            } else {
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (signInError) throw signInError;
+                onLogin();
+            }
+        } catch (err: any) {
+            console.error("Auth error:", err);
+            setError(err.message || "Ocorreu um erro na autenticação.");
+        } finally {
             setIsLoading(false);
-            onLogin();
-        }, 1200);
+        }
     };
 
     return (
@@ -62,18 +93,32 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                     {/* Heading */}
                     <div className="mb-8">
                         <h1 className="text-3xl font-black text-white leading-tight mb-2">
-                            Entrar na<br />
+                            {isSignUp ? "Criar minha" : "Entrar na"}<br />
                             <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-                                minha conta
+                                {isSignUp ? "conta gratuita" : "minha conta"}
                             </span>
                         </h1>
                         <p className="text-sm text-slate-400 font-medium">
-                            Não tem uma conta?{" "}
-                            <a href="#" className="text-violet-400 font-bold hover:text-violet-300 transition-colors">
-                                Registar-se
-                            </a>
+                            {isSignUp ? "Já tem uma conta?" : "Não tem uma conta?"}{" "}
+                            <button
+                                onClick={() => {
+                                    setIsSignUp(!isSignUp);
+                                    setError(null);
+                                }}
+                                className="text-violet-400 font-bold hover:text-violet-300 transition-colors"
+                            >
+                                {isSignUp ? "Fazer Login" : "Registar-se"}
+                            </button>
                         </p>
                     </div>
+
+                    {/* Error Message */}
+                    {error && (
+                        <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-bold text-red-400">
+                            <AlertCircle size={16} />
+                            <span>{error}</span>
+                        </div>
+                    )}
 
                     {/* Social Login */}
                     <div className="grid grid-cols-2 gap-3 mb-6">
@@ -120,9 +165,11 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                         <div className="space-y-1.5">
                             <div className="flex items-center justify-between">
                                 <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Senha</label>
-                                <a href="#" className="text-xs font-bold text-violet-400 hover:text-violet-300 transition-colors">
-                                    Esqueceu a senha?
-                                </a>
+                                {!isSignUp && (
+                                    <a href="#" className="text-xs font-bold text-violet-400 hover:text-violet-300 transition-colors">
+                                        Esqueceu a senha?
+                                    </a>
+                                )}
                             </div>
                             <div className="relative">
                                 <input
@@ -132,6 +179,7 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                                     placeholder="••••••••"
                                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 pr-12 text-sm text-white placeholder-slate-600 outline-none focus:border-violet-500 focus:bg-white/8 focus:ring-2 focus:ring-violet-500/20 transition-all duration-200"
                                     required
+                                    minLength={6}
                                 />
                                 <button
                                     type="button"
@@ -151,11 +199,11 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
                             {isLoading ? (
                                 <>
                                     <div className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                                    <span>Entrando...</span>
+                                    <span>{isSignUp ? "Criando..." : "Entrando..."}</span>
                                 </>
                             ) : (
                                 <>
-                                    <span>Entrar</span>
+                                    <span>{isSignUp ? "Criar conta" : "Entrar"}</span>
                                     <ArrowRight size={16} />
                                 </>
                             )}

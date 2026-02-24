@@ -4,13 +4,29 @@ import type { ViewType } from "./components/Sidebar";
 import { Dashboard } from "./components/Dashboard";
 import { Views } from "./components/Views";
 import { LoginView } from "./components/LoginView";
+import { supabase } from "./lib/supabase";
+import type { Session } from "@supabase/supabase-js";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
   const [activeView, setActiveView] = useState<ViewType>("Dashboard");
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return document.documentElement.classList.contains('dark');
   });
+
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -23,9 +39,13 @@ function App() {
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   // Show login screen if not authenticated
-  if (!isLoggedIn) {
-    return <LoginView onLogin={() => setIsLoggedIn(true)} />;
+  if (!session) {
+    return <LoginView onLogin={() => { }} />;
   }
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <div className="flex bg-slate-50 dark:bg-brand-950 min-h-screen font-sans transition-colors duration-300">
@@ -39,7 +59,7 @@ function App() {
       {/* Main Content Area */}
       <div className="flex-1 ml-64 min-w-0 min-h-screen">
         <div key={activeView}>
-          {activeView === "Dashboard" && <Dashboard onLogout={() => setIsLoggedIn(false)} />}
+          {activeView === "Dashboard" && <Dashboard onLogout={handleLogout} setView={setActiveView} />}
           {activeView === "Vendas" && <Views.Vendas />}
           {activeView === "Produtos" && <Views.Produtos />}
           {activeView === "Afiliados" && <Views.Afiliados />}
