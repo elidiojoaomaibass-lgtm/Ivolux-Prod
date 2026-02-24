@@ -28,7 +28,7 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
 
         try {
             if (isSignUp) {
-                const { error: signUpError } = await supabase.auth.signUp({
+                const { data, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
@@ -41,9 +41,14 @@ export const LoginView = ({ onLogin }: LoginViewProps) => {
 
                 if (signUpError) throw signUpError;
 
-                // Supabase by default requires email confirmation
-                alert("Conta criada com sucesso! Verifique seu email para confirmar o cadastro.");
-                setIsSignUp(false);
+                // If session is returned, it means email confirmation is disabled
+                if (data.session) {
+                    onLogin();
+                } else {
+                    // If no session but no error, tell the user account is ready
+                    alert("Conta criada com sucesso! Você já pode entrar.");
+                    setIsSignUp(false);
+                }
             } else {
                 const { error: signInError } = await supabase.auth.signInWithPassword({
                     email,
