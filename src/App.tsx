@@ -53,32 +53,11 @@ function App() {
   // Show login screen if not authenticated
   if (!session) {
     return <LoginView onLogin={() => {
+      // Re-fetch session after login to update state immediately
       supabase.auth.getSession().then(({ data: { session } }) => {
         setSession(session);
       });
     }} />;
-  }
-
-  // Exclusive Access Check
-  const EXCLUSIVE_EMAIL = "trasforaagora@gmail.com";
-  if (session.user.email !== EXCLUSIVE_EMAIL) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0d0d17] p-6 text-center">
-        <div className="max-w-md space-y-6">
-          <div className="h-20 w-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto border border-red-500/20 text-red-500">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
-          </div>
-          <h1 className="text-2xl font-black text-white">Acesso Restrito</h1>
-          <p className="text-slate-400 font-medium">Esta plataforma é exclusiva para o administrador. O seu acesso foi negado.</p>
-          <button
-            onClick={handleLogout}
-            className="px-8 py-3 bg-violet-600 text-white rounded-xl font-bold hover:bg-violet-700 transition-all"
-          >
-            Voltar para Login
-          </button>
-        </div>
-      </div>
-    );
   }
 
   return (
